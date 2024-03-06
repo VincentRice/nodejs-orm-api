@@ -1,6 +1,6 @@
-module.exports = validateRequrest;
+module.exports = validateRequest;
 
-function validateRequrest(req, next, schema) {
+function validateRequest(req, next, schema) {
     const options = {
         abortEarly: false,
         allowUnknown: true,
@@ -8,7 +8,7 @@ function validateRequrest(req, next, schema) {
     };
     const { error, value } = schema.validate(req.body, options);
     if (error) {
-        next(`Validation error: ${error.details.map(x => x.message).json(', ')}`);
+        next(`Validation error: ${error.details.map(x => x.message).join(', ')}`);
     } else {
         req.body = value;
         next();

@@ -18,7 +18,7 @@ async function getById(id) {
 }
 
 async function create(params) {
-    if (await db.User.findOne({ where: {email: params.email } })) {
+    if (await db.User.findOne({ where: { email: params.email } })) {
         throw 'Email "' + params.email + '" is already registered';
     }
 

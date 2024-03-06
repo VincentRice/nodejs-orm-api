@@ -1,15 +1,15 @@
-const { Datatypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 module.exports = model;
 
 function model(sequelize) {
     const attributes = {
-        email: { type: Datatypes.STRING, allowNull: false },
-        passwordHash: { type: Datatypes.STRING, allowNull: false },
-        title: { type: Datatypes.STRING, allowNull: false },
-        firstName: { type: Datatypes.STRING, allowNull: false },
-        lastName: { type: Datatypes.STRING, allowNull: false },
-        role: { type: Datatypes.STRING, allowNull: false },
+        email: { type: DataTypes.STRING, allowNull: false },
+        passwordHash: { type: DataTypes.STRING, allowNull: false },
+        title: { type: DataTypes.STRING, allowNull: false },
+        firstName: { type: DataTypes.STRING, allowNull: false },
+        lastName: { type: DataTypes.STRING, allowNull: false },
+        role: { type: DataTypes.STRING, allowNull: false }
     };
 
     const options = {
@@ -19,7 +19,7 @@ function model(sequelize) {
         scopes: {
             withHash: { attributes: {}, }
         }
-    };
+    };  
 
     return sequelize.define('User', attributes, options);
 }

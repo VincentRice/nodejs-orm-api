@@ -52,7 +52,7 @@ function createSchema(req, res, next) {
         firstName: Joi.string().required(),
         lastName: Joi.string().required(),
         role: Joi.string().valid(Role.Admin, Role.User).required(),
-        email: Joi.string().required(),
+        email: Joi.string().email().required(),
         password: Joi.string().min(6).required(),
         confirmPassword: Joi.string().valid(Joi.ref('password')).required()
     });
@@ -65,7 +65,7 @@ function updateSchema(req, res, next) {
         firstName: Joi.string().required(''),
         lastName: Joi.string().required(''),
         role: Joi.string().valid(Role.Admin, Role.User).required(''),
-        email: Joi.string().required(''),
+        email: Joi.string().email().required(''),
         password: Joi.string().min(6).required(''),
         confirmPassword: Joi.string().valid(Joi.ref('password')).required('')
     }).with('password', 'confirmPassword');
