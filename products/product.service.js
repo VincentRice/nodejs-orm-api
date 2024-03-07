@@ -29,18 +29,20 @@ async function create(params) {
 }
 
 async function update(id, params) {
-    const product = await Product.findByPk(id); 
+    const product = await getProduct(id); 
   
     if (!product) {
       throw new Error('Product not found'); 
     }
   
-    if (params.name && product.name !== params.name) {
-      const existingProduct = await Product.findOne({ where: { name: params.name } });
-      if (existingProduct) {
-        throw new Error('Product name "' + params.name + '" already exists');
-      }
+    const productChanged = params.product && user.product !== params.product;
+    if (productChanged && await db.Product.findOne({ where: { product: params.product } })) {
+        throw 'Product "' + params.product + '" is already taken';
     }
+
+    
+    Object.assign(product, params);
+    await product.save();
 }
 
 async function _delete(id) {
@@ -49,7 +51,7 @@ async function _delete(id) {
 }
 
 async function getProduct(id) {
-    const product = await db.product.findByPk(id);
+    const product = await db.Product.findByPk(id);
     if (!product) throw 'Product not found';
     return product;
 }
